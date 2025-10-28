@@ -1,0 +1,11 @@
+# Nix build artifacts
+/result*
+
+# Machine-specific hardware configuration.
+# This file is generated ON the host machine and is unique.
+# DO NOT commit this file.
+hardware-configuration.nix
+
+# VSCode / Editor metadata
+.vscode/
+.idea/

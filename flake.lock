@@ -1,0 +1,48 @@
+{
+  "nodes": {
+    "nix-dev-base": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1761632626,
+        "narHash": "sha256-wSpsiF1HU9zasV1LqixCZJw7nhIGekJUCZCuxGR7LW4=",
+        "owner": "r-agatsuma",
+        "repo": "nix-dev-base",
+        "rev": "20cf61dce346657f79170a49ff902c2dc4ce9ced",
+        "type": "github"
+      },
+      "original": {
+        "owner": "r-agatsuma",
+        "repo": "nix-dev-base",
+        "type": "github"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1761468971,
+        "narHash": "sha256-vY2OLVg5ZTobdroQKQQSipSIkHlxOTrIF1fsMzPh8w8=",
+        "owner": "Nixos",
+        "repo": "nixpkgs",
+        "rev": "78e34d1667d32d8a0ffc3eba4591ff256e80576e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Nixos",
+        "ref": "nixos-25.05",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "nix-dev-base": "nix-dev-base",
+        "nixpkgs": "nixpkgs"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}
