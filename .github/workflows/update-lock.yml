@@ -7,8 +7,8 @@ on:
     - cron: '0 3 * * 0'
 
 permissions:
-  contents: write       # 'git push' (コミット) のため
-  pull-requests: write  # 'gh pr create' (PR作成) のため
+  contents: write
+  pull-requests: write
 
 jobs:
   autoupdate:
@@ -17,7 +17,12 @@ jobs:
       - name: 'Checkout repository'
         uses: actions/checkout@v5.0.0
         with:
-          fetch-depth: 0 
+          fetch-depth: 0
+
+      - name: Set current datetime as env variable
+        env:
+          TZ: 'Asia/Tokyo' # タイムゾーン指定
+        run: echo "CURRENT_DATETIME=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
 
       - name: 'Install Nix (Flakes enabled)'
         uses: cachix/install-nix-action@v31
@@ -28,6 +33,11 @@ jobs:
       - name: 'Update flake lock'
         run: nix flake update
 
+      - name: 'Run build test for ci-test configuration'
+        run: |
+          echo "Attempting to build target: .#nixosConfigurations.ci-test.config.system.build.toplevel"
+          nix build .#nixosConfigurations.ci-test.config.system.build.toplevel
+      
       - name: 'Create Pull Request'
         uses: peter-evans/create-pull-request@v7.0.8
         with:
@@ -36,8 +46,7 @@ jobs:
             ci(deps): Update flake.lock
 
             Automated update of 'flake.lock' by GitHub Actions.
-            This triggers the 'build-test.yml' workflow.
-          branch: 'ci/update-flake-lock'
+          branch: 'ci/update-flake-lock-at-${{ env.CURRENT_DATETIME }}'
           delete-branch: true
           add-paths: |
             flake.lock
