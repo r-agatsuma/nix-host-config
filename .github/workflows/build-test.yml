@@ -1,0 +1,30 @@
+name: 'Build Test'
+
+on:
+  # プルリクエストが作成されたら実行
+  pull_request:
+    branches:
+      - 'main'
+  # 任意のタイミングでビルド実行
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # (1) リポジトリをチェックアウト
+      - name: 'Checkout repository'
+        uses: actions/checkout@v5.0.0
+
+      # (2) Nix (Flakes有効) をインストール
+      - name: 'Install Nix'
+        uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+
+      # (3) ビルドテストの実行
+      - name: 'Run build test for ci-test configuration'
+        run: |
+          echo "Attempting to build target: .#nixosConfigurations.ci-test.config.system.build.toplevel"
+          nix build .#nixosConfigurations.ci-test.config.system.build.toplevel

@@ -1,0 +1,43 @@
+name: 'Update Flake Lock'
+
+on:
+  workflow_dispatch: # 手動実行
+  schedule:
+    # 毎週日曜 AM 3:00 (UTC)
+    - cron: '0 3 * * 0'
+
+permissions:
+  contents: write       # 'git push' (コミット) のため
+  pull-requests: write  # 'gh pr create' (PR作成) のため
+
+jobs:
+  autoupdate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout repository'
+        uses: actions/checkout@v5.0.0
+        with:
+          fetch-depth: 0 
+
+      - name: 'Install Nix (Flakes enabled)'
+        uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+
+      - name: 'Update flake lock'
+        run: nix flake update
+
+      - name: 'Create Pull Request'
+        uses: peter-evans/create-pull-request@v7.0.8
+        with:
+          title: 'ci(deps): Update flake.lock'
+          commit-message: |
+            ci(deps): Update flake.lock
+
+            Automated update of 'flake.lock' by GitHub Actions.
+            This triggers the 'build-test.yml' workflow.
+          branch: 'ci/update-flake-lock'
+          delete-branch: true
+          add-paths: |
+            flake.lock
