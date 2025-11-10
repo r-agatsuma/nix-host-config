@@ -6,13 +6,7 @@ This is my **private** repository for managing NixOS host-specific configuration
 
 Follow these steps for a freshly installed, minimal NixOS system.
 
-### Step 1: On Your Laptop (Prepare)
-Clone this repository to your laptop.
-```bash
-git clone git@github.com:r-agatsuma/nix-host-config.git
-```
-
-### Step 2: On the New NixOS Machine (Install)
+### Step 1: On the New NixOS Machine
 1.  Log in as `root`.
 2.  Install `git` and `openssh` (if not already present).
     ```bash
@@ -27,15 +21,24 @@ git clone git@github.com:r-agatsuma/nix-host-config.git
     ip a
     ```
 
-### Step 3: From Your Laptop (Transfer)
-`scp` or `rsync` the entire repository (excluding `.git`) to the new machine's `/root` directory. `rsync` is cleaner.
+### Step 2: From Your Laptop (Transfer)
+`scp` or `rsync` the entire repository to the new machine's `/root` directory. `rsync` is cleaner.
 
 ```bash
-# From your laptop's nix-host-config directory
-rsync -rlpt --exclude '.git' ./ root@<nixos-ip>:/root/nix-host-config
+git clone https://github.com/r-agatsuma/nix-host-config.git
+cd nix-host-config
+rsync -rlptv --delete ./ root@<nixos-ip>:/root/nix-host-config
 ```
 
-### Step 4: On the New NixOS Machine (Run Setup as `root`)
+As an alternative, use `git`.
+
+```bash
+nix-env -iA nixos.git
+git clone https://github.com/r-agatsuma/nix-host-config.git /root/nix-host-config
+cd /root/nix-host-config
+```
+
+### Step 3: On the New NixOS Machine (Run Setup as `root`)
 1.  Log in as `root` again.
 2.  Run the `setup-host.sh` script. This script will:
     * Back up the original `/etc/nixos`.
@@ -49,7 +52,7 @@ cd /root/nix-host-config
 ./setup-host.sh
 ```
 
-### Step 5: On the New NixOS Machine (Finalize as `dev`)
+### Step 4: On the New NixOS Machine (Finalize as `dev`)
 1.  Log out of `root` and **log in as the new `dev` user**.
 2.  Navigate to your new config directory.
     ```bash
