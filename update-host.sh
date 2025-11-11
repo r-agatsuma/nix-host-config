@@ -15,6 +15,8 @@ echo '--- Updating flake inputs (like nixos-dev-base) ---'
 sudo nix flake update
 
 echo '---  Rebuild NixOS ---'
-sudo nixos-rebuild switch --flake .#$HOST_FLAKE_NAME  --impure
-
+# SATD: どう考えてももっとましな解決策がある
+git add  -f hardware-configuration.nix
+sudo nixos-rebuild switch --flake .#$HOST_FLAKE_NAME
+git reset hardware-configuration.nix
 echo '--- Update Complete ---'

@@ -41,7 +41,10 @@ echo "-> hardware-configuration.nix copied."
 # 4. 最初のビルド
 echo "Running first build from $CONFIG_SOURCE_DIR..."
 echo "This will create the 'dev' user and their home directory..."
-nixos-rebuild switch --flake "$CONFIG_SOURCE_DIR#$HOST_FLAKE_NAME" --impure
+# SATD: どう考えてももっとましな解決策がある
+git add  -f hardware-configuration.nix
+nixos-rebuild switch --flake "$CONFIG_SOURCE_DIR#$HOST_FLAKE_NAME"
+git reset hardware-configuration.nix
 
 # 5. ビルド成功。設定ファイルを最終的な場所 (/home/dev/...) に移動
 echo "Build successful. Moving config to $CONFIG_DIR_TARGET..."
