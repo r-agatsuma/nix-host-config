@@ -47,7 +47,7 @@ shutdown now
 ```
 
 #### 3. (For VMs) Attach Serial Hardware: 
-If NixOS is running in a VM, you must attach a serial port device through your hypervisor's settings (e.g., VirtualBox, VMware):
+If NixOS is running in a VM, you must attach a serial port device through your hypervisor's settings (e.g., Proxmox VE):
 
 > VM Settings > Hardware > Add > Serial Port
 
