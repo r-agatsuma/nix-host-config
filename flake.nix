@@ -3,11 +3,6 @@
 
   inputs = {
     nixpkgs.url = "github:Nixos/nixpkgs/nixos-25.05";
-
-    nixos-dev-base = {
-      url = "github:r-agatsuma/nixos-dev-base";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs = { self, nixpkgs, nixos-dev-base, ... }@inputs: {
@@ -15,15 +10,14 @@
       system = "x86_64-linux";
 
       modules = [
-        ./hardware-configuration.nix
-        nixos-dev-base.nixosModules.default
-        ./user.nix
-        { 
-          boot.loader.systemd-boot.enable = true;
-          boot.loader.efi.canTouchEfiVariables = true;
-          networking.hostName = "nixos";
-          system.stateVersion = "25.05";
-        }
+        ./hardware-configuration.nix  # マシン固有の設定
+        ./dev-base.nix                # 共通パッケージ
+        ./user.nix                    # dev ユーザー SSHキーの設定など
+        ./system.nix                  # ホスト名やシステムが参照するリポジトリの設定
+        ./boot-bios.nix               # biosによる起動
+        # ./boot-uefi.nix             # uefiによる起動(オプション)
+        ./serial-console.nix          # シリアルコンソールの有効化(オプション)
+        ./qemu-guest.nix              # ゲストエージェントの有効化(オプション)
       ];
     };
 
@@ -31,15 +25,9 @@
       system = "x86_64-linux";
       modules = [
         ./hardware-ci.nix
-        nixos-dev-base.nixosModules.default
+        ./dev-base.nix 
         ./user.nix
-        { 
-          users.allowNoPasswordLogin = true;
-          boot.loader.systemd-boot.enable = true;
-          boot.loader.efi.canTouchEfiVariables = true;
-          networking.hostName = "nixos";
-          system.stateVersion = "25.05";
-        }
+        ./ci-test.nix
       ];
     };
   };

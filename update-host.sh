@@ -15,6 +15,6 @@ echo '--- Updating flake inputs (like nixos-dev-base) ---'
 sudo nix flake update
 
 echo '---  Rebuild NixOS ---'
-sudo nixos-rebuild switch --flake .#$HOST_FLAKE_NAME
+sudo nixos-rebuild switch --flake .#$HOST_FLAKE_NAME  --impure
 
 echo '--- Update Complete ---'
