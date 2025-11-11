@@ -7,7 +7,8 @@
     extraGroups = [ "wheel" ];
     openssh.authorizedKeys.keys = [
       # ADD YOUR SSH PUBLIC KEYS HERE
-      # "ssh-ed25519 AAAA..."
+      # "ssh-ed25519 AAAA... USER1@KEY1"
+      # "ssh-ed25519 AAAA... USER2@KEY2"
     ];
   };
 
