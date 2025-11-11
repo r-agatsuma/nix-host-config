@@ -3,8 +3,8 @@ name: 'Update Flake Lock'
 on:
   workflow_dispatch: # 手動実行
   schedule:
-    # 毎週日曜 AM 3:00 (UTC)
-    - cron: '0 3 * * 0'
+    # 毎週日曜 AM 4:00 (UTC)
+    - cron: '0 4 * * 0'
 
 permissions:
   contents: write
