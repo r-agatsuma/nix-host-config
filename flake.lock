@@ -1,32 +1,32 @@
 {
   "nodes": {
-    "nix-dev-base": {
+    "nixos-dev-base": {
       "inputs": {
         "nixpkgs": [
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1761632626,
-        "narHash": "sha256-wSpsiF1HU9zasV1LqixCZJw7nhIGekJUCZCuxGR7LW4=",
+        "lastModified": 1762821803,
+        "narHash": "sha256-TSbUALMTRBQ6xtuDyp43eRUTlgt1QpdyD5LmZvksIlU=",
         "owner": "r-agatsuma",
-        "repo": "nix-dev-base",
-        "rev": "20cf61dce346657f79170a49ff902c2dc4ce9ced",
+        "repo": "nixos-dev-base",
+        "rev": "ed99a74babe2e81f80fe755c1233aa90b73019e4",
         "type": "github"
       },
       "original": {
         "owner": "r-agatsuma",
-        "repo": "nix-dev-base",
+        "repo": "nixos-dev-base",
         "type": "github"
       }
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1762498405,
-        "narHash": "sha256-Zg/SCgCaAioc0/SVZQJxuECGPJy+OAeBcGeA5okdYDc=",
+        "lastModified": 1762756533,
+        "narHash": "sha256-HiRDeUOD1VLklHeOmaKDzf+8Hb7vSWPVFcWwaTrpm+U=",
         "owner": "Nixos",
         "repo": "nixpkgs",
-        "rev": "6faeb062ee4cf4f105989d490831713cc5a43ee1",
+        "rev": "c2448301fb856e351aab33e64c33a3fc8bcf637d",
         "type": "github"
       },
       "original": {
@@ -38,7 +38,7 @@
     },
     "root": {
       "inputs": {
-        "nix-dev-base": "nix-dev-base",
+        "nixos-dev-base": "nixos-dev-base",
         "nixpkgs": "nixpkgs"
       }
     }
