@@ -17,7 +17,7 @@
     };
     # フォント
     fonts = {
-        fonts = with pkgs; [
+        packages = with pkgs; [
             noto-fonts-cjk-serif
             noto-fonts-cjk-sans
             noto-fonts-emoji
@@ -34,7 +34,6 @@
         };
     };
     # オーディオ
-    sound.enable = true;
     hardware.pulseaudio.enable = false;
     security.rtkit.enable = true;
     services.pipewire = {
